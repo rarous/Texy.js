@@ -1,0 +1,5 @@
+load:
+  - lib/jasmine-1.1.0/jasmine.js
+  - lib/JasmineAdapter.js
+  - src/*.js
+  - tests/*.js
