@@ -17,7 +17,7 @@
             removeSpecialCharacters,
             trimRight,
             removeTrailingLineEndings
-        ].reduce(function(x,f){return f(x)}, input);
+        ].reduce(function(x, f) {return f(x)}, input);
     }
 
     function removeSoftHyphens(input) {
