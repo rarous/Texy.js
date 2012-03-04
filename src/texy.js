@@ -54,10 +54,9 @@
     }
 
     function renderNode(node) {
-        return '<' + node.tag + '>' + node.text + '</' + node.tag + '>';
+        return ['<', node.tag, '>', node.text, '</', node.tag, '>'].join('');
     }
 
     window['Texy'] = Texy;
     window['Texy']['normalize'] = normalize;
-
 })(window);
