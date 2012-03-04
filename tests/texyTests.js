@@ -21,7 +21,7 @@
         describe("Input normalization", function() {
 
             it("should remove soft hyphens", function() {
-                expect(Texy.normalize('\xC2\xAD')).toBe('')
+                expect(Texy.normalize('abc\xC2\xADdef')).toBe('abcdef')
             });
 
             it("should normalize DOS line endings", function() {
