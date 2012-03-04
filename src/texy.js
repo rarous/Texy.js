@@ -6,11 +6,8 @@
 
     Texy.prototype.process = function(input) {
         var normalized = normalize(input);
-        return normalized.
-            split(/\n{2,}/g).
-            filter(function(x) {return x}).
-            map(function(x) {return '<p>' + x + '</p>'}).
-            join('\n\n');
+        var ast = parse(normalized);
+        return render(ast);
     };
 
     function normalize(input) {
@@ -45,6 +42,21 @@
 
     function removeTrailingLineEndings(input) {
         return input.replace(/^\n+|\n+$/g, '')
+    }
+
+    function parse(input) {
+        return input.
+            split(/\n{2,}/g).
+            filter(function(x) {return x}).
+            map(function(x) {return { tag : 'p', text : x }});
+    }
+
+    function render(ast) {
+        return ast.map(renderNode).join('\n\n');
+    }
+
+    function renderNode(node) {
+        return '<' + node.tag + '>' + node.text + '</' + node.tag + '>';
     }
 
     window['Texy'] = Texy;
