@@ -14,13 +14,17 @@
     };
 
     function normalize(input) {
-        return [
+        return applyFilters(input, [
             removeSoftHyphens,
             normalizeLineEndings,
             removeSpecialCharacters,
             trimRight,
             removeTrailingLineEndings
-        ].reduce(function(x, f) {return f(x)}, input);
+        ]);
+    }
+
+    function applyFilters(input, filters) {
+        return filters.reduce(function(x, f) {return f(x)}, input);
     }
 
     function removeSoftHyphens(input) {
