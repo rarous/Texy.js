@@ -5,9 +5,12 @@
     var Texy = function() {};
 
     Texy.prototype.process = function(input) {
-        if (!input) return '';
         var normalized = normalize(input);
-        return normalized ? '<p>' + normalized + '</p>' : '';
+        return normalized.
+            split(/\n{2,}/g).
+            filter(function(x) {return x}).
+            map(function(x) {return '<p>' + x + '</p>'}).
+            join('\n\n');
     };
 
     function normalize(input) {

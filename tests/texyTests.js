@@ -14,6 +14,10 @@
             expect(texy.process('abc')).toBe('<p>abc</p>')
         });
 
+        it("should create more paragraphs", function() {
+            expect(texy.process('abc\n\ndef')).toBe('<p>abc</p>\n\n<p>def</p>')
+        });
+
         describe("Input normalization", function() {
 
             it("should remove soft hyphens", function() {
