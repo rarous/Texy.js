@@ -51,8 +51,7 @@
     function parse(input) {
         return input.
             split(/\n{2,}/g).
-            filter(
-            function(x) {return x}).
+            filter(function(x) {return x}).
             map(function(x) {return { tag : 'p', text : x }});
     }
 
@@ -64,6 +63,11 @@
         return ['<', node.tag, '>', node.text, '</', node.tag, '>'].join('');
     }
 
+    /**
+     * @author Jonas Raoni Soares Silva
+     * @see http://jsfromhell.com/geral/utf-8
+     * @type {Object}
+     */
     var Utf8 = {
         encode : function(s) {
             for (var c, i = -1, l = (s = s.split('')).length, o = String.fromCharCode; ++i < l; s[i] = (c = s[i].charCodeAt(0)) >= 127 ? o(0xc0 | (c >>> 6)) + o(0x80 | (c & 0x3f)) : s[i]);
