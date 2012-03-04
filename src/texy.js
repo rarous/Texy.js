@@ -5,7 +5,14 @@
     var Texy = function() {};
 
     Texy.prototype.process = function(input) {
-        return applyFilters(input, [Utf8.encode, normalize, parse, render, Utf8.decode]);
+        return applyFilters(input, [
+            Utf8.encode,
+            removeSoftHyphens,
+            normalize,
+            parse,
+            render,
+            Utf8.decode
+        ]);
     };
 
     function applyFilters(input, filters) {
@@ -14,7 +21,6 @@
 
     function normalize(input) {
         return applyFilters(input, [
-            removeSoftHyphens,
             normalizeLineEndings,
             removeSpecialCharacters,
             trimRight,
@@ -60,7 +66,7 @@
 
     var Utf8 = {
         encode : function(s) {
-            for (var c, i = -1, l = (s = s.split('')).length, o = String.fromCharCode; ++i < l;s[i] = (c = s[i].charCodeAt(0)) >= 127 ? o(0xc0 | (c >>> 6)) + o(0x80 | (c & 0x3f)) : s[i]);
+            for (var c, i = -1, l = (s = s.split('')).length, o = String.fromCharCode; ++i < l; s[i] = (c = s[i].charCodeAt(0)) >= 127 ? o(0xc0 | (c >>> 6)) + o(0x80 | (c & 0x3f)) : s[i]);
             return s.join('');
         },
         decode : function(s) {

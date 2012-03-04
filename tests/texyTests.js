@@ -18,11 +18,11 @@
             expect(texy.process('abc\n\ndef')).toBe('<p>abc</p>\n\n<p>def</p>')
         });
 
-        describe("Input normalization", function() {
+        it("should remove soft hyphens", function() {
+            expect(texy.process('abc\u00ADdef')).toBe('<p>abcdef</p>')
+        });
 
-            it("should remove soft hyphens", function() {
-                expect(Texy.normalize('abc\xC2\xADdef')).toBe('abcdef')
-            });
+        describe("Input normalization", function() {
 
             it("should normalize DOS line endings", function() {
                 expect(Texy.normalize('abc\r\ndef')).toBe('abc\ndef')
