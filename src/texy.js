@@ -5,9 +5,7 @@
     var Texy = function() {};
 
     Texy.prototype.process = function(input) {
-        var normalized = normalize(input);
-        var ast = parse(normalized);
-        return render(ast);
+        return applyFilters(input, [normalize, parse, render]);
     };
 
     function normalize(input) {
