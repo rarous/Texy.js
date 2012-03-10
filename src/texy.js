@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 (function(window, undefined) {
 
@@ -6,12 +6,11 @@
 
     Texy.prototype.process = function(input) {
         return applyFilters(input, [
-            Utf8.encode,
+            ensureNotNull,
             removeSoftHyphens,
             normalize,
             parse,
             render,
-            Utf8.decode
         ]);
     };
 
@@ -28,8 +27,12 @@
         ]);
     }
 
+    function ensureNotNull(input) {
+        return input || '';
+    }
+
     function removeSoftHyphens(input) {
-        return input.replace(/\xC2\xAD/g, '');
+        return input.replace(/\xAD/g, '');
     }
 
     function normalizeLineEndings(input) {
@@ -66,22 +69,6 @@
     function renderNode(node) {
         return ['<', node.tag, '>', node.text, '</', node.tag, '>'].join('');
     }
-
-    /**
-     * @author Jonas Raoni Soares Silva
-     * @see http://jsfromhell.com/geral/utf-8
-     * @type {Object}
-     */
-    var Utf8 = {
-        encode : function(s) {
-            for (var c, i = -1, l = (s = s.split('')).length, o = String.fromCharCode; ++i < l; s[i] = (c = s[i].charCodeAt(0)) >= 127 ? o(0xc0 | (c >>> 6)) + o(0x80 | (c & 0x3f)) : s[i]);
-            return s.join('');
-        },
-        decode : function(s) {
-            for (var a, b, i = -1, l = (s = s.split('')).length, o = String.fromCharCode, c = 'charCodeAt'; ++i < l; ((a = s[i][c](0)) & 0x80) && (s[i] = (a & 0xfc) == 0xc0 && ((b = s[i + 1][c](0)) & 0xc0) == 0x80 ? o(((a & 0x03) << 6) + (b & 0x3f)) : o(128), s[++i] = ''));
-            return s.join('');
-        }
-    };
 
     window['Texy'] = Texy;
     window['Texy']['normalize'] = normalize;
