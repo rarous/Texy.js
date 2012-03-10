@@ -1,10 +1,14 @@
-"use strict";
+﻿"use strict";
 
 (function() {
 
     describe("Texy!", function() {
 
         var texy = new Texy;
+
+        it("should process null", function() {
+            expect(texy.process(null)).toBe('')
+        });
 
         it("should process empty input", function() {
             expect(texy.process('')).toBe('')

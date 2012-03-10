@@ -6,6 +6,7 @@
 
     Texy.prototype.process = function(input) {
         return applyFilters(input, [
+            ensureNotNull,
             removeSoftHyphens,
             normalize,
             parse,
@@ -24,6 +25,10 @@
             trimRight,
             removeTrailingLineEndings
         ]);
+    }
+
+    function ensureNotNull(input) {
+        return input || '';
     }
 
     function removeSoftHyphens(input) {
