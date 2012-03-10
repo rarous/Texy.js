@@ -51,8 +51,12 @@
     function parse(input) {
         return input.
             split(/\n{2,}/g).
-            filter(function(x) {return x}).
+            filter(isNonBlankString).
             map(function(x) {return { tag : 'p', text : x }});
+    }
+
+    function isNonBlankString(str) {
+        return !!str;
     }
 
     function render(ast) {
